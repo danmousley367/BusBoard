@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/danmousley367/BusBoard/issues"
   },
-  "homepage": "https://github.com/danmousley367/BusBoard#readme"
+  "homepage": "https://github.com/danmousley367/BusBoard#readme",
+  "dependencies": {
+    "axios": "^0.27.1"
+  }
 }
