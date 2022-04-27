@@ -17,7 +17,7 @@ class Bus {
     }
 }
 
-const sortBuses = (busData) => {
+const sortBusesByTime = (busData) => {
     return busData.sort((a, b) => {
         return a.timeToStation - b.timeToStation
     })
@@ -54,7 +54,7 @@ const getBusStopCodes = (latAndLon) => {
             const nearestStops = sortedStops.slice(0, 2)
 
             nearestStops.forEach(async (stop) => {
-                getBuses(stop.naptanId)
+                getNextFiveBuses(stop.naptanId)
                     .then((buses) => {
                         console.log(`${stop.commonName} is a distance of ${stop.distance.toFixed(2)}m away. The next buses are:`)
                         buses.forEach((bus) => bus.listBus())
@@ -66,10 +66,10 @@ const getBusStopCodes = (latAndLon) => {
         })
 }
 
-const getBuses = (busStopCodes) => {
+const getNextFiveBuses = (busStopCodes) => {
     return axios.get(`https://api.tfl.gov.uk/StopPoint/${busStopCodes}/Arrivals?app_id=${APP_ID}&app_key=${APP_KEY}`)
         .then((response) => {
-            const sortedData = sortBuses(response.data)
+            const sortedData = sortBusesByTime(response.data)
             const nextFiveBuses = sortedData.slice(0, 5)
             const buses = []
 
